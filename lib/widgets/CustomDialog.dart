@@ -8,6 +8,9 @@ class PickerData {
 }
 
 class MyDialog extends StatelessWidget {
+  final String dialogTitle;
+  final bool dialogSearch;
+  MyDialog({this.dialogTitle, this.dialogSearch = false});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -17,7 +20,8 @@ class MyDialog extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         child: ContentBox(
-          title: "Select beneficiary",
+          title: dialogTitle,
+          isSearch: dialogSearch,
         ));
   }
 }

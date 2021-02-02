@@ -24,7 +24,10 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               showDialog(
                   context: context,
-                  builder: (BuildContext context) => MyDialog());
+                  builder: (BuildContext context) => MyDialog(
+                        dialogTitle: "Select beneficiary",
+                        dialogSearch: true,
+                      ));
             },
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
