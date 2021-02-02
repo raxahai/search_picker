@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/my_search.dart';
+import '../widgets/CustomDialog.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               showDialog(
                   context: context,
-                  builder: (BuildContext context) => SearchPicker());
+                  builder: (BuildContext context) => MyDialog());
             },
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
