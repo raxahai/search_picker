@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'content_box.dart';
 
-class PickerData {
-  String title;
-  String subTitle;
-  PickerData({this.title, this.subTitle});
-}
-
 class MyDialog extends StatelessWidget {
   final String dialogTitle;
   final bool dialogSearch;

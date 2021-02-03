@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+
+class PickerData {
+  String title;
+  String subTitle;
+  PickerData({this.title, this.subTitle});
+}
 
 class ContentBox extends StatefulWidget {
   final String title;
@@ -9,14 +16,20 @@ class ContentBox extends StatefulWidget {
 }
 
 class _ContentBoxState extends State<ContentBox> {
+  GlobalKey<AutoCompleteTextFieldState<PickerData>> key = new GlobalKey();
   TextEditingController controller = new TextEditingController();
+  AutoCompleteTextField searchTextField;
 
-  void onSearchTextChanged(String text) async {
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-  }
+  // list of consumers
+  List<PickerData> lst = [
+    PickerData(title: 'Syed Raza Haider', subTitle: 'USD'),
+    PickerData(title: 'Abdul Mateen', subTitle: 'GDP'),
+    PickerData(title: 'Abdul samad', subTitle: 'GDP'),
+    PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
+    PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
+    PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
+    PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -57,70 +70,75 @@ class _ContentBoxState extends State<ContentBox> {
                             ),
                           ),
                           Expanded(
-                            child: new TextField(
-                              controller: controller,
+                            child: searchTextField =
+                                AutoCompleteTextField<PickerData>(
+                              key: key,
+                              style: new TextStyle(
+                                color: Colors.black,
+                              ),
                               decoration: new InputDecoration(
-                                  hintText: 'Search',
-                                  // border: OutlineInputBorder(
-                                  //   borderSide:
-                                  //       new BorderSide(color: Colors.teal),
-                                  // ),
-                                  border: InputBorder.none),
-                              onChanged: onSearchTextChanged,
+                                border: InputBorder.none,
+                                hintText: 'Search',
+                                hintStyle: TextStyle(color: Colors.black),
+                              ),
+                              itemBuilder: (context, item) {
+                                return Container(
+                                  width: 500,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  child: ListTile(
+                                    title: Text(item.title),
+                                    subtitle: Text(item.subTitle),
+                                    dense: true,
+                                  ),
+                                );
+                                // return showListTile(item);
+                              },
+                              itemFilter: (item, query) {
+                                return item.title
+                                    .toLowerCase()
+                                    .startsWith(query.toLowerCase());
+                              },
+                              suggestions: lst,
+                              itemSubmitted: (item) {
+                                print(item.title);
+                              },
+                              itemSorter: (a, b) {
+                                return a.title.compareTo(b.title);
+                              },
                             ),
                           ),
                         ],
                       ),
-                      // color: Theme.of(context).primaryColor,
-                      // child: new Card(
-                      //   child: new ListTile(
-                      //     tileColor: Colors.red,
-                      //     leading: new Icon(
-                      //       Icons.search,
-                      //     ),
-                      //     title: new TextField(
-                      //       controller: controller,
-                      //       decoration: new InputDecoration(
-                      //           hintText: 'Search', border: InputBorder.none),
-                      //       onChanged: onSearchTextChanged,
-                      //     ),
-                      //     // trailing: new IconButton(
-                      //     //   icon: new Icon(Icons.cancel),
-                      //     //   onPressed: () {
-                      //     //     controller.clear();
-                      //     //     onSearchTextChanged('');
-                      //     //   },
-                      //     // ),
-                      //   ),
-                      // ),
                     ),
-                    // new Expanded(
-                    //   child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    //       ? new ListView.builder(
-                    //     itemCount: _searchResult.length,
-                    //     itemBuilder: (context, i) {
-                    //       return new Card(
-                    //         child: new ListTile(
-                    //           leading: new CircleAvatar(backgroundImage: new NetworkImage(_searchResult[i].profileUrl,),),
-                    //           title: new Text(_searchResult[i].firstName + ' ' + _searchResult[i].lastName),
-                    //         ),
-                    //         margin: const EdgeInsets.all(0.0),
-                    //       );
-                    //     },
-                    //   )
-                    //       : new ListView.builder(
-                    //     itemCount: _userDetails.length,
-                    //     itemBuilder: (context, index) {
-                    //       return new Card(
-                    //         child: new ListTile(
-                    //           leading: new CircleAvatar(backgroundImage: new NetworkImage(_userDetails[index].profileUrl,),),
-                    //           title: new Text(_userDetails[index].firstName + ' ' + _userDetails[index].lastName),
-                    //         ),
-                    //         margin: const EdgeInsets.all(0.0),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: lst.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: ListTile(
+                                title: Text(
+                                  lst[index].title,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(lst[index].subTitle),
+                                dense: true,
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        color: Colors.black12, width: 2.0))),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 )
               : Container(
