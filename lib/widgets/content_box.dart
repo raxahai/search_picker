@@ -17,10 +17,11 @@ class _ContentBoxState extends State<ContentBox> {
     filteredList = widget.list;
   }
 
+  Color themeColor = Colors.red[300];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.only(left: 20, top: 30, right: 20, bottom: 20),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: Colors.white,
@@ -38,7 +39,7 @@ class _ContentBoxState extends State<ContentBox> {
                         child: FlatButton(
                           child: Text("Account"),
                           onPressed: () {},
-                          color: Colors.red[300],
+                          color: themeColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(5),
@@ -53,7 +54,7 @@ class _ContentBoxState extends State<ContentBox> {
                         child: FlatButton(
                           child: Text("Beneficiary"),
                           onPressed: () {},
-                          color: Colors.red[300],
+                          color: themeColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(5),
@@ -85,6 +86,7 @@ class _ContentBoxState extends State<ContentBox> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: new Icon(
                           Icons.search,
+                          color: Colors.black38,
                         ),
                       ),
                       Expanded(
@@ -107,7 +109,15 @@ class _ContentBoxState extends State<ContentBox> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 15,
+                ),
+                Container(
+                  height: 1.5,
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  color: Colors.black.withOpacity(0.2),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -137,16 +147,20 @@ class _ContentBoxState extends State<ContentBox> {
                                   children: [
                                     Text(
                                       filteredList[index].title,
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                    Text(
+                                      filteredList[index].subTitle,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Text(filteredList[index].subTitle),
                                   ],
                                 ),
                               ),
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 18,
+                                color: Colors.black38,
                               ),
                             ],
                           ));
@@ -166,7 +180,7 @@ class _ContentBoxState extends State<ContentBox> {
                             "Cancel",
                             style: TextStyle(color: Colors.white),
                           ),
-                          color: Colors.red[300],
+                          color: themeColor,
                         ),
                       ),
                     ],

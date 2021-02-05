@@ -17,13 +17,16 @@ class _MyHomePageState extends State<MyHomePage> {
   List<PickerData> userData = [
     PickerData(
         image: "assets/images/canada-flag.png",
-        title: 'Syed Raza Haider',
+        title: 'Canadian dollar',
         subTitle: 'CAD'),
     PickerData(
         image: "assets/images/united-kingdom-flag.png",
-        title: 'Abdul Mateen',
-        subTitle: 'GDP'),
-    // PickerData(title: 'Abdul samad', subTitle: 'GDP'),
+        title: 'Great british pound',
+        subTitle: 'GBP'),
+    PickerData(
+        image: "assets/images/america-flag-png.png",
+        title: 'US dollar',
+        subTitle: 'USD'),
     // PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
     // PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
     // PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
