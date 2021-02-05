@@ -74,7 +74,6 @@ class _ContentBoxState extends State<ContentBox> {
                 ),
                 Container(
                   height: 1.5,
-                  margin: EdgeInsets.symmetric(horizontal: 15),
                   color: Colors.black.withOpacity(0.2),
                 ),
                 SizedBox(
