@@ -20,7 +20,7 @@ class _ContentBoxState extends State<ContentBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, top: 30, right: 20, bottom: 20),
+      // padding: EdgeInsets.only(left: 20, top: 30, right: 20, bottom: 20),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: Colors.white,
@@ -31,7 +31,41 @@ class _ContentBoxState extends State<ContentBox> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Row(
-                  children: [],
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: FlatButton(
+                          child: Text("Account"),
+                          onPressed: () {},
+                          color: Colors.red[300],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: FlatButton(
+                          child: Text("Beneficiary"),
+                          onPressed: () {},
+                          color: Colors.red[300],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(5),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Text(
                   widget.title,
@@ -41,7 +75,6 @@ class _ContentBoxState extends State<ContentBox> {
                   height: 25,
                 ),
                 Container(
-                  // color: Colors.red,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black26),
                       borderRadius: BorderRadius.circular(5.0)),
