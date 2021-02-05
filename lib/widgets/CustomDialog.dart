@@ -4,7 +4,8 @@ import 'content_box.dart';
 class MyDialog extends StatelessWidget {
   final String dialogTitle;
   final bool dialogSearch;
-  MyDialog({this.dialogTitle, this.dialogSearch = false});
+  final List list;
+  MyDialog({this.dialogTitle, this.dialogSearch = false, this.list});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -16,6 +17,7 @@ class MyDialog extends StatelessWidget {
         child: ContentBox(
           title: dialogTitle,
           isSearch: dialogSearch,
+          list: list,
         ));
   }
 }
