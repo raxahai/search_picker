@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../widgets/CustomDialog.dart';
 
 class PickerData {
+  String image;
   String title;
   String subTitle;
-  PickerData({this.title, this.subTitle});
+  PickerData({this.image, this.title, this.subTitle});
 }
 
 class MyHomePage extends StatefulWidget {
@@ -14,10 +15,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<PickerData> userData = [
-    PickerData(title: 'Syed Raza Haider', subTitle: 'USD'),
-    PickerData(title: 'Abdul Mateen', subTitle: 'GDP'),
-    PickerData(title: 'Abdul samad', subTitle: 'GDP'),
-    PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
+    PickerData(
+        image: "assets/images/canada-flag.png",
+        title: 'Syed Raza Haider',
+        subTitle: 'CAD'),
+    PickerData(
+        image: "assets/images/united-kingdom-flag.png",
+        title: 'Abdul Mateen',
+        subTitle: 'GDP'),
+    // PickerData(title: 'Abdul samad', subTitle: 'GDP'),
+    // PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
     // PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
     // PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
     // PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),

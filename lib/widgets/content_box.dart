@@ -75,6 +75,7 @@ class _ContentBoxState extends State<ContentBox> {
                   height: 25,
                 ),
                 Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black26),
                       borderRadius: BorderRadius.circular(5.0)),
@@ -116,39 +117,63 @@ class _ContentBoxState extends State<ContentBox> {
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
                               borderRadius: BorderRadius.circular(5.0)),
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: ListTile(
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: -2.5),
-                            title: Text(
-                              filteredList[index].title,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(filteredList[index].subTitle),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios,
-                              size: 18,
-                            ),
-                            dense: true,
+                          padding: EdgeInsets.only(right: 5, top: 8, bottom: 8),
+                          margin:
+                              EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Image.asset(
+                                  filteredList[index].image,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      filteredList[index].title,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(filteredList[index].subTitle),
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 18,
+                              ),
+                            ],
                           ));
                     },
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: FlatButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.white),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          color: Colors.red[300],
                         ),
-                        color: Colors.red[300],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
                 )
               ],
             )
