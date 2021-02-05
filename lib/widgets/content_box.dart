@@ -70,7 +70,15 @@ class _ContentBoxState extends State<ContentBox> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 15,
+                ),
+                Container(
+                  height: 1.5,
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  color: Colors.black.withOpacity(0.2),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Expanded(
                   child: ListView.builder(
