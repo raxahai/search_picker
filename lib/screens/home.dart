@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) => MyDialog(
-                        dialogTitle: "Select beneficiary",
+                        dialogTitle: "Select account",
                         dialogSearch: true,
                         list: userData,
                       ));

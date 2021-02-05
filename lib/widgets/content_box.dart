@@ -30,6 +30,9 @@ class _ContentBoxState extends State<ContentBox> {
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Row(
+                  children: [],
+                ),
                 Text(
                   widget.title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
