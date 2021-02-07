@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<PickerData> userData = [
+  List<PickerData> accountData = [
     PickerData(
         image: "assets/images/canada-flag.png",
         title: 'Canadian dollar',
@@ -31,6 +31,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
     // PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
     // PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),
+  ];
+  List<PickerData> beneficiaryData = [
+    PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
+    PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
+    PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
+    PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -52,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (BuildContext context) => MyDialog(
                         dialogTitle: "Select account",
                         dialogSearch: true,
-                        list: userData,
+                        list1: accountData,
+                        list2: beneficiaryData,
                       ));
             },
             shape:
