@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:search_picker/screens/home.dart';
 import 'content_box.dart';
 
 class MyDialog extends StatelessWidget {
   final String dialogTitle;
   final bool dialogSearch;
-  final List list1;
-  final List list2;
-  MyDialog(
-      {this.dialogTitle, this.dialogSearch = false, this.list1, this.list2});
+  final TabData tab1;
+  final TabData tab2;
+  MyDialog({this.dialogTitle, this.dialogSearch = false, this.tab1, this.tab2});
   @override
   Widget build(BuildContext context) {
     return Dialog(
+        insetPadding: EdgeInsets.all(10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         child: ContentBox(
-          title: dialogTitle,
           isSearch: dialogSearch,
-          list1: list1,
-          list2: list2,
+          tab1: tab1,
+          tab2: tab2,
         ));
   }
 }
