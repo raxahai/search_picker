@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:search_picker/screens/home.dart';
 
 class MyDialog extends StatelessWidget {
   final String dialogTitle;
   final bool dialogSearch;
-  final List list;
+  final List<PickerData> list;
   MyDialog({this.dialogTitle, this.dialogSearch = false, this.list});
   @override
   Widget build(BuildContext context) {
@@ -11,6 +12,7 @@ class MyDialog extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
+        insetPadding: EdgeInsets.all(10),
         elevation: 0,
         backgroundColor: Colors.transparent,
         child: ContentBox(
@@ -24,14 +26,14 @@ class MyDialog extends StatelessWidget {
 class ContentBox extends StatefulWidget {
   final String title;
   final bool isSearch;
-  final List list;
+  final List<PickerData> list;
   ContentBox({this.title, this.isSearch = false, this.list});
   @override
   _ContentBoxState createState() => _ContentBoxState();
 }
 
 class _ContentBoxState extends State<ContentBox> {
-  List filteredList = new List();
+  List<PickerData> filteredList = new List<PickerData>();
   @override
   void initState() {
     super.initState();
@@ -100,7 +102,8 @@ class _ContentBoxState extends State<ContentBox> {
                 SizedBox(
                   height: 15,
                 ),
-                Expanded(
+                SizedBox(
+                  height: 250,
                   child: ListView.builder(
                     itemCount: filteredList.length,
                     itemBuilder: (context, index) {
