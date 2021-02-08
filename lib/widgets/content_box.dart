@@ -48,15 +48,22 @@ class _ContentBoxState extends State<ContentBox> {
             Expanded(
               child: Container(
                 height: 50,
-                child: FlatButton(
+                decoration: BoxDecoration(
                   color: themeColor,
-                  child: Text("Account"),
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                    ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5),
                   ),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: FlatButton(
+                        child: Text("Account"),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(height: 3, color: Colors.white)
+                  ],
                 ),
               ),
             ),
@@ -240,15 +247,23 @@ class _ContentBoxState extends State<ContentBox> {
             Expanded(
               child: Container(
                 height: 50,
-                child: FlatButton(
-                  child: Text("Beneficiary"),
-                  onPressed: () {},
+                decoration: BoxDecoration(
                   color: themeColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(5),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(5)),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: FlatButton(
+                        child: Text("Beneficiary"),
+                        onPressed: () {},
+                      ),
                     ),
-                  ),
+                    Container(
+                      height: 3,
+                      color: Colors.white,
+                    )
+                  ],
                 ),
               ),
             )
