@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:search_picker/screens/home.dart';
 
 class ContentBox extends StatefulWidget {
-  String title;
   final bool isSearch;
-  final List list1;
-  final List list2;
-  ContentBox({this.title, this.isSearch = false, this.list1, this.list2});
+  final TabData tab1;
+  final TabData tab2;
+  ContentBox({this.isSearch = false, this.tab1, this.tab2});
   @override
   _ContentBoxState createState() => _ContentBoxState();
 }
 
 class _ContentBoxState extends State<ContentBox> {
   var isAccount = true;
-  List filteredListAccount = new List();
-  List filteredListBeneficiary = new List();
+  List<PickerData> filteredListAccount = new List<PickerData>();
+  List<PickerData> filteredListBeneficiary = new List<PickerData>();
   @override
   void initState() {
     super.initState();
-    filteredListAccount = widget.list1;
-    filteredListBeneficiary = widget.list2;
+    filteredListAccount = widget.tab1.tabList;
+    filteredListBeneficiary = widget.tab2.tabList;
   }
 
   Color themeColor = Colors.red[300];
@@ -48,11 +48,10 @@ class _ContentBoxState extends State<ContentBox> {
             Expanded(
               child: Container(
                 height: 50,
-                color: themeColor,
                 child: FlatButton(
+                  color: themeColor,
                   child: Text("Account"),
                   onPressed: () {},
-                  color: themeColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(5),
@@ -64,13 +63,13 @@ class _ContentBoxState extends State<ContentBox> {
             Expanded(
               child: Container(
                 height: 50,
-                color: themeColor,
                 child: FlatButton(
+                  color: themeColor,
                   child: Text("Beneficiary"),
                   onPressed: () {
                     setState(() {
                       isAccount = false;
-                      widget.title = "Select Beneficiary";
+                      // widget.tab2.tabTitle = "Select Beneficiary";
                     });
                   },
                   shape: RoundedRectangleBorder(
@@ -87,7 +86,7 @@ class _ContentBoxState extends State<ContentBox> {
           height: 20,
         ),
         Text(
-          widget.title,
+          widget.tab1.tabTitle,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         SizedBox(
@@ -115,7 +114,7 @@ class _ContentBoxState extends State<ContentBox> {
                     border: InputBorder.none),
                 onChanged: (string) {
                   setState(() {
-                    filteredListAccount = widget.list1
+                    filteredListAccount = widget.tab1.tabList
                         .where((u) => u.title
                             .toLowerCase()
                             .contains(string.toLowerCase()))
@@ -137,7 +136,8 @@ class _ContentBoxState extends State<ContentBox> {
         SizedBox(
           height: 15,
         ),
-        Expanded(
+        SizedBox(
+          height: 250,
           child: ListView.builder(
             itemCount: filteredListAccount.length,
             itemBuilder: (context, index) {
@@ -164,7 +164,9 @@ class _ContentBoxState extends State<ContentBox> {
                           children: [
                             Text(
                               filteredListAccount[index].title,
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
                             ),
                             Text(
                               filteredListAccount[index].subTitle,
@@ -216,14 +218,14 @@ class _ContentBoxState extends State<ContentBox> {
         Row(
           children: [
             Expanded(
-              child: SizedBox(
+              child: Container(
                 height: 50,
                 child: FlatButton(
                   child: Text("Account"),
                   onPressed: () {
                     setState(() {
                       isAccount = true;
-                      widget.title = "Select account";
+                      // widget.tab1.tabTitle = "Select account";
                     });
                   },
                   color: themeColor,
@@ -236,7 +238,7 @@ class _ContentBoxState extends State<ContentBox> {
               ),
             ),
             Expanded(
-              child: SizedBox(
+              child: Container(
                 height: 50,
                 child: FlatButton(
                   child: Text("Beneficiary"),
@@ -256,7 +258,7 @@ class _ContentBoxState extends State<ContentBox> {
           height: 20,
         ),
         Text(
-          widget.title,
+          widget.tab2.tabTitle,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         SizedBox(
@@ -284,7 +286,7 @@ class _ContentBoxState extends State<ContentBox> {
                     border: InputBorder.none),
                 onChanged: (string) {
                   setState(() {
-                    filteredListBeneficiary = widget.list2
+                    filteredListBeneficiary = widget.tab2.tabList
                         .where((u) => u.title
                             .toLowerCase()
                             .contains(string.toLowerCase()))
@@ -306,7 +308,8 @@ class _ContentBoxState extends State<ContentBox> {
         SizedBox(
           height: 15,
         ),
-        Expanded(
+        SizedBox(
+          height: 250,
           child: ListView.builder(
             itemCount: filteredListBeneficiary.length,
             itemBuilder: (context, index) {
@@ -328,11 +331,13 @@ class _ContentBoxState extends State<ContentBox> {
                           children: [
                             Text(
                               filteredListBeneficiary[index].title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
                               filteredListBeneficiary[index].subTitle,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                              style: TextStyle(fontSize: 12),
                             ),
                           ],
                         ),
