@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import '../widgets/CustomDialog.dart';
 
+class TabData {
+  String tabTitle;
+  List<PickerData> tabList;
+  TabData({this.tabTitle, this.tabList});
+}
+
 class PickerData {
   String image;
   String title;
@@ -14,7 +20,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<PickerData> accountData = [
+  static List<PickerData> accountData = [
     PickerData(
         image: "assets/images/canada-flag.png",
         title: 'Canadian dollar',
@@ -32,12 +38,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
     // PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),
   ];
-  List<PickerData> beneficiaryData = [
+  static List<PickerData> beneficiaryData = [
     PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
     PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
     PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
     PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),
   ];
+
+  TabData account = TabData(tabTitle: "Select Account", tabList: accountData);
+  TabData beneficiary =
+      TabData(tabTitle: "Select Beneficiary", tabList: beneficiaryData);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (BuildContext context) => MyDialog(
                         dialogTitle: "Select account",
                         dialogSearch: true,
-                        list1: accountData,
-                        list2: beneficiaryData,
+                        tab1: account,
+                        tab2: beneficiary,
                       ));
             },
             shape:
