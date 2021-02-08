@@ -14,10 +14,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<PickerData> userData = [
+    PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
     PickerData(title: 'Syed Raza Haider', subTitle: 'USD'),
     PickerData(title: 'Abdul Mateen', subTitle: 'GDP'),
-    PickerData(title: 'Abdul samad', subTitle: 'GDP'),
-    PickerData(title: 'Umair Rabbani', subTitle: 'PKR'),
+    // PickerData(title: 'Abdul samad', subTitle: 'GDP'),
     // PickerData(title: 'Obaid Saleem', subTitle: 'IND'),
     // PickerData(title: 'Junaid Khan', subTitle: 'SAR'),
     // PickerData(title: 'Muhammad Hassan', subTitle: 'GDP'),
