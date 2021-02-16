@@ -108,24 +108,47 @@ class _ContentBoxState extends State<ContentBox> {
                     itemCount: filteredList.length,
                     itemBuilder: (context, index) {
                       return Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: ListTile(
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: -2.5),
-                            title: Text(
-                              filteredList[index].title,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(filteredList[index].subTitle),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios,
-                              size: 18,
-                            ),
-                            dense: true,
-                          ));
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(5.0)),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                                padding: EdgeInsets.only(
+                                    left: 10, right: 5, top: 8, bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(filteredList[index].title,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1),
+                                          Text(filteredList[index].subTitle,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2
+                                                  .copyWith(fontSize: 12)),
+                                        ],
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 18,
+                                      color: Colors.black38,
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
