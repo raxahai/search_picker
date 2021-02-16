@@ -10,91 +10,90 @@ class ContentBox extends StatefulWidget {
   _ContentBoxState createState() => _ContentBoxState();
 }
 
-class _ContentBoxState extends State<ContentBox> {
+class _ContentBoxState extends State<ContentBox>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  Size size;
+
   var isAccount = true;
   List<PickerData> filteredListAccount = new List<PickerData>();
   List<PickerData> filteredListBeneficiary = new List<PickerData>();
   @override
   void initState() {
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
     filteredListAccount = widget.tab1.tabList;
     filteredListBeneficiary = widget.tab2.tabList;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   Color themeColor = Colors.red[300];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+    size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Container(
+        height: size.height * 0.7,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: widget.isSearch
+            ? Column(
+                children: [
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: themeColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5)),
+                    ),
+                    child: TabBar(
+                      indicatorWeight: 3,
+                      indicatorColor: Colors.white,
+                      controller: _tabController,
+                      tabs: [
+                        Text("Account"),
+                        Text("Beneficiary"),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _showAccount(),
+                        _showBeneficiary(),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            : Container(
+                height: 200,
+              ),
       ),
-      child: widget.isSearch
-          ? (isAccount ? showAccount() : showBeneficiary())
-          : Container(
-              height: 200,
-            ),
     );
   }
 
-  Widget showAccount() {
+  Widget _showAccount() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: themeColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: FlatButton(
-                        child: Text("Account"),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Container(height: 3, color: Colors.white)
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: 50,
-                child: FlatButton(
-                  color: themeColor,
-                  child: Text("Beneficiary"),
-                  onPressed: () {
-                    setState(() {
-                      isAccount = false;
-                      // widget.tab2.tabTitle = "Select Beneficiary";
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(5),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
         SizedBox(
           height: 20,
         ),
         Text(
           widget.tab1.tabTitle,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 16),
         ),
         SizedBox(
           height: 25,
@@ -143,52 +142,61 @@ class _ContentBoxState extends State<ContentBox> {
         SizedBox(
           height: 15,
         ),
-        SizedBox(
-          height: 250,
+        Expanded(
           child: ListView.builder(
             itemCount: filteredListAccount.length,
             itemBuilder: (context, index) {
               return Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(5.0)),
-                  padding: EdgeInsets.only(right: 5, top: 8, bottom: 8),
-                  margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Image.asset(
-                          filteredListAccount[index].image,
-                          width: 30,
-                          height: 30,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(5.0)),
+                margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding: EdgeInsets.only(right: 5, top: 8, bottom: 8),
+                        child: Row(
                           children: [
-                            Text(
-                              filteredListAccount[index].title,
-                              style: TextStyle(
-                                fontSize: 12,
+                            Expanded(
+                              flex: 1,
+                              child: Image.asset(
+                                filteredListAccount[index].image,
+                                width: 30,
+                                height: 30,
                               ),
                             ),
-                            Text(
-                              filteredListAccount[index].subTitle,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    filteredListAccount[index].title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(fontSize: 12),
+                                  ),
+                                  Text(
+                                    filteredListAccount[index].subTitle,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                              color: Colors.black38,
                             ),
                           ],
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 18,
-                        color: Colors.black38,
-                      ),
-                    ],
-                  ));
+                        )),
+                  ),
+                ),
+              );
             },
           ),
         ),
@@ -203,9 +211,7 @@ class _ContentBoxState extends State<ContentBox> {
                   },
                   child: Text(
                     "Cancel",
-                    style: TextStyle(color: Colors.white),
                   ),
-                  color: themeColor,
                 ),
               ),
             ],
@@ -218,63 +224,16 @@ class _ContentBoxState extends State<ContentBox> {
     );
   }
 
-  Widget showBeneficiary() {
+  Widget _showBeneficiary() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 50,
-                child: FlatButton(
-                  child: Text("Account"),
-                  onPressed: () {
-                    setState(() {
-                      isAccount = true;
-                      // widget.tab1.tabTitle = "Select account";
-                    });
-                  },
-                  color: themeColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: themeColor,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(5)),
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: FlatButton(
-                        child: Text("Beneficiary"),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Container(
-                      height: 3,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
         SizedBox(
           height: 20,
         ),
         Text(
           widget.tab2.tabTitle,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 16),
         ),
         SizedBox(
           height: 25,
@@ -323,47 +282,56 @@ class _ContentBoxState extends State<ContentBox> {
         SizedBox(
           height: 15,
         ),
-        SizedBox(
-          height: 250,
+        Expanded(
           child: ListView.builder(
             itemCount: filteredListBeneficiary.length,
             itemBuilder: (context, index) {
               return Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(5.0)),
-                  padding: EdgeInsets.only(right: 5, top: 8, bottom: 8),
-                  margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(5.0)),
+                margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding: EdgeInsets.only(right: 5, top: 8, bottom: 8),
+                        child: Row(
                           children: [
-                            Text(
-                              filteredListBeneficiary[index].title,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    filteredListBeneficiary[index].title,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                  Text(
+                                    filteredListBeneficiary[index].subTitle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(fontSize: 12),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              filteredListBeneficiary[index].subTitle,
-                              style: TextStyle(fontSize: 12),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                              color: Colors.black38,
                             ),
                           ],
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 18,
-                        color: Colors.black38,
-                      ),
-                    ],
-                  ));
+                        )),
+                  ),
+                ),
+              );
             },
           ),
         ),
@@ -378,9 +346,7 @@ class _ContentBoxState extends State<ContentBox> {
                   },
                   child: Text(
                     "Cancel",
-                    style: TextStyle(color: Colors.white),
                   ),
-                  color: themeColor,
                 ),
               ),
             ],
